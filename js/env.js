@@ -1,5 +1,5 @@
 // Supabase configuration
-const SUPABASE_URL = 'https://cdgfdmnfvidnaicihwdt.supabase.co';
+const SUPABASE_URL = 'https://fqznfkuwxuxyqxxjtbbi.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZxem5ma3V3eHV4eXF4eGp0YmJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyMDAxMzMsImV4cCI6MjA2Mzc3NjEzM30.etGf3-YpyL2gzSPjA9V_VcnE7861Z6Ty06emoqzKWX4';
 
 // Network connectivity check
