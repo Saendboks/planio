@@ -1,6 +1,6 @@
 // Supabase configuration
 const SUPABASE_URL = 'https://cdgfdmnfvidnaicihwdt.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNkZ2ZkbW5mdmlkbmFpY2lod2R0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc0MDQyMjAsImV4cCI6MjA2Mjk4MDIyMH0.jCB_7eqtOrkjZQhGZ0nm70SsKLYOFTBNiJi-dx3xq2A';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZxem5ma3V3eHV4eXF4eGp0YmJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyMDAxMzMsImV4cCI6MjA2Mzc3NjEzM30.etGf3-YpyL2gzSPjA9V_VcnE7861Z6Ty06emoqzKWX4';
 
 // Network connectivity check
 const checkConnectivity = async () => {
