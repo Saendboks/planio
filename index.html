@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planion - Schichtplanung</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>Planion</h1>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li class="active"><a href="index.html"><i class="fas fa-calendar-week"></i> Dienstplan</a></li>
+                    <li><a href="employee.html"><i class="fas fa-users"></i> Mitarbeiter</a></li>
+                    <li><a href="#"><i class="fas fa-chart-bar"></i> Statistiken</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> Einstellungen</a></li>
+                </ul>
+            </nav>
+            <div class="user-profile">
+                <img src="https://ui-avatars.com/api/?name=Admin&background=6c5ce7&color=fff" alt="User Profile">
+                <div class="user-info">
+                    <p class="user-name">Admin</p>
+                    <p class="user-role">Manager</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="page-title">
+                    <h2>Dienstplan</h2>
+                </div>
+                <div class="controls">
+                    <button id="prev-week" class="btn btn-icon"><i class="fas fa-chevron-left"></i></button>
+                    <span id="current-week-display">3. Juli - 9. Juli</span>
+                    <button id="next-week" class="btn btn-icon"><i class="fas fa-chevron-right"></i></button>
+                    <button id="today-btn" class="btn">Heute</button>
+                    <div class="view-selector">
+                        <button class="btn btn-view active" data-view="week">Woche</button>
+                        <button class="btn btn-view" data-view="month">Monat</button>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button id="add-shift-btn" class="btn btn-primary"><i class="fas fa-plus"></i> Schicht hinzufügen</button>
+                    <button id="save-plan-btn" class="btn btn-success"><i class="fas fa-save"></i> Plan speichern</button>
+                </div>
+            </header>
+
+            <section class="schedule-container">
+                <div class="department-tabs">
+                    <button class="dept-tab active" data-dept="all">Alle Abteilungen</button>
+                    <button class="dept-tab" data-dept="team-a">Team A</button>
+                    <button class="dept-tab" data-dept="team-b">Team B</button>
+                </div>
+
+                <div class="schedule-grid">
+                    <!-- Time labels column -->
+                    <div class="time-labels">
+                        <div class="time-header"></div>
+                        <div class="employee-row">Erforderliche Dienste</div>
+                        <div class="employee-row">Offene Schichten</div>
+                        <!-- Employee rows will be dynamically added here -->
+                    </div>
+
+                    <!-- Days of the week -->
+                    <div class="schedule-days">
+                        <!-- Day columns will be dynamically added here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Shift Assignment Modal -->
+            <div id="shift-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Schicht zuweisen</h3>
+                        <button class="close-modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="shift-form">
+                            <div class="form-group">
+                                <label for="shift-date">Datum</label>
+                                <input type="date" id="shift-date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="shift-type">Schichttyp</label>
+                                <select id="shift-type" required>
+                                    <option value="frühdienst">Frühdienst (07:00-15:00)</option>
+                                    <option value="spätdienst">Spätdienst (15:00-23:00)</option>
+                                    <option value="nachtdienst">Nachtdienst (23:00-07:00)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="shift-employee">Mitarbeiter</label>
+                                <select id="shift-employee" required>
+                                    <!-- Options will be dynamically populated -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="shift-notes">Notizen</label>
+                                <textarea id="shift-notes"></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary close-modal">Abbrechen</button>
+                                <button type="submit" class="btn btn-primary">Speichern</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.38.4/dist/umd/supabase.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script src="js/env.js"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/schedule.js"></script>
+</body>
+</html>

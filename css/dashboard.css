@@ -1,0 +1,426 @@
+/* Dashboard Styling */
+.top-bar-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.notifications {
+    position: relative;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: var(--danger-color);
+    color: white;
+    font-size: 10px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.user-menu {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-md);
+    width: 200px;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: var(--spacing-md);
+    color: var(--gray-700);
+    transition: background-color 0.3s;
+}
+
+.dropdown-menu a:hover {
+    background-color: var(--gray-100);
+}
+
+.dropdown-menu a i {
+    margin-right: var(--spacing-sm);
+    width: 20px;
+    text-align: center;
+}
+
+.dropdown-divider {
+    height: 1px;
+    background-color: var(--gray-200);
+    margin: var(--spacing-xs) 0;
+}
+
+/* Dashboard Content */
+.dashboard-content {
+    padding: var(--spacing-lg);
+    overflow-y: auto;
+}
+
+/* Welcome Card */
+.welcome-card {
+    background-color: white;
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.welcome-text h3 {
+    margin-top: 0;
+    margin-bottom: var(--spacing-xs);
+    color: var(--gray-800);
+}
+
+.welcome-text p {
+    color: var(--gray-600);
+    margin: 0;
+}
+
+.welcome-date {
+    text-align: right;
+}
+
+.welcome-date .date {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--gray-800);
+}
+
+.welcome-date .time {
+    color: var(--gray-600);
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.stat-card {
+    background-color: white;
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+}
+
+.stat-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: var(--spacing-md);
+    font-size: var(--font-size-lg);
+    color: white;
+}
+
+.employees-icon {
+    background-color: var(--primary-color);
+}
+
+.absences-icon {
+    background-color: var(--danger-color);
+}
+
+.shifts-icon {
+    background-color: var(--secondary-color);
+}
+
+.pending-icon {
+    background-color: var(--warning-color);
+}
+
+.stat-info {
+    flex: 1;
+}
+
+.stat-info h4 {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    margin-bottom: var(--spacing-xs);
+}
+
+.stat-value {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--gray-800);
+    margin-bottom: var(--spacing-xs);
+}
+
+.stat-detail {
+    font-size: var(--font-size-xs);
+    color: var(--gray-600);
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto;
+    gap: var(--spacing-md);
+}
+
+.dashboard-card {
+    background-color: white;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.card-header h3 {
+    margin: 0;
+    font-size: var(--font-size-md);
+    color: var(--gray-800);
+}
+
+.card-link {
+    font-size: var(--font-size-sm);
+    color: var(--primary-color);
+}
+
+.card-content {
+    padding: var(--spacing-lg);
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Schedule List */
+.schedule-list .schedule-item {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--spacing-sm);
+    background-color: var(--gray-50);
+}
+
+.schedule-time {
+    font-weight: 600;
+    margin-right: var(--spacing-md);
+    min-width: 100px;
+}
+
+.schedule-info {
+    flex: 1;
+}
+
+.schedule-title {
+    font-weight: 500;
+    margin-bottom: var(--spacing-xs);
+}
+
+.schedule-employees {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+}
+
+.schedule-badge {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+}
+
+.badge-early {
+    background-color: var(--shift-early);
+    color: white;
+}
+
+.badge-late {
+    background-color: var(--shift-late);
+    color: white;
+}
+
+/* Absences List */
+.absences-list .absence-item {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--spacing-sm);
+    background-color: var(--gray-50);
+}
+
+.absence-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: var(--spacing-md);
+}
+
+.absence-info {
+    flex: 1;
+}
+
+.absence-name {
+    font-weight: 500;
+    margin-bottom: var(--spacing-xs);
+}
+
+.absence-dates {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    margin-bottom: var(--spacing-xs);
+}
+
+.absence-type {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+}
+
+.type-vacation {
+    background-color: var(--shift-vacation);
+    color: var(--gray-800);
+}
+
+.type-sick {
+    background-color: var(--shift-sick);
+    color: white;
+}
+
+.type-training {
+    background-color: var(--primary-light);
+    color: white;
+}
+
+/* Approvals List */
+.approvals-list .approval-item {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--spacing-sm);
+    background-color: var(--gray-50);
+}
+
+.approval-info {
+    flex: 1;
+    margin-right: var(--spacing-md);
+}
+
+.approval-title {
+    font-weight: 500;
+    margin-bottom: var(--spacing-xs);
+}
+
+.approval-details {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    margin-bottom: var(--spacing-xs);
+}
+
+.approval-date {
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+}
+
+.approval-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+/* Quick Actions */
+.quick-actions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+}
+
+.quick-action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-lg);
+    background-color: var(--gray-50);
+    border-radius: var(--border-radius-md);
+    transition: all 0.3s ease;
+}
+
+.quick-action:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.quick-action i {
+    font-size: 24px;
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Empty States */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xl);
+    color: var(--gray-500);
+    text-align: center;
+}
+
+.empty-state i {
+    font-size: 48px;
+    margin-bottom: var(--spacing-md);
+    opacity: 0.5;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .welcome-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .welcome-date {
+        text-align: center;
+        margin-top: var(--spacing-md);
+    }
+}

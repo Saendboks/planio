@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planion - Mitarbeiteransicht</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>Planion</h1>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="index.html"><i class="fas fa-calendar-week"></i> Dienstplan</a></li>
+                    <li class="active"><a href="employee.html"><i class="fas fa-users"></i> Mitarbeiter</a></li>
+                    <li><a href="#"><i class="fas fa-chart-bar"></i> Statistiken</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> Einstellungen</a></li>
+                </ul>
+            </nav>
+            <div class="user-profile">
+                <img src="https://ui-avatars.com/api/?name=Admin&background=6c5ce7&color=fff" alt="User Profile">
+                <div class="user-info">
+                    <p class="user-name">Admin</p>
+                    <p class="user-role">Manager</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="page-title">
+                    <h2>Mitarbeiter</h2>
+                </div>
+                <div class="controls">
+                    <div class="search-container">
+                        <input type="text" id="employee-search" placeholder="Mitarbeiter suchen...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="filter-container">
+                        <select id="department-filter">
+                            <option value="all">Alle Abteilungen</option>
+                            <option value="team-a">Team A</option>
+                            <option value="team-b">Team B</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Employee actions removed - employees are synced from Supabase -->
+            </header>
+
+            <section class="employee-container">
+                <div class="employee-list">
+                    <table id="employee-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Abteilung</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="employee-table-body">
+                            <!-- Employee rows will be dynamically added here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Employee Detail View -->
+            <section id="employee-detail" class="employee-detail hidden">
+                <div class="detail-header">
+                    <button id="back-to-list" class="btn btn-icon"><i class="fas fa-arrow-left"></i></button>
+                    <h3 id="detail-employee-name">Mitarbeitername</h3>
+                </div>
+                
+                <div class="detail-tabs">
+                    <button class="detail-tab active" data-tab="shifts">Schichten</button>
+                    <button class="detail-tab" data-tab="absences">Abwesenheiten</button>
+                    <button class="detail-tab" data-tab="info">Informationen</button>
+                </div>
+                
+                <div class="detail-content">
+                    <!-- Shifts Tab -->
+                    <div id="shifts-tab" class="tab-content active">
+                        <div class="week-selector">
+                            <button id="prev-week-detail" class="btn btn-icon"><i class="fas fa-chevron-left"></i></button>
+                            <span id="current-week-detail">3. Juli - 9. Juli</span>
+                            <button id="next-week-detail" class="btn btn-icon"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        
+                        <div class="employee-shifts">
+                            <!-- Shifts will be dynamically added here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Absences Tab -->
+                    <div id="absences-tab" class="tab-content">
+                        <div class="absences-list">
+                            <table id="absences-table">
+                                <thead>
+                                    <tr>
+                                        <th>Typ</th>
+                                        <th>Von</th>
+                                        <th>Bis</th>
+                                        <th>Status</th>
+                                        <th>Aktionen</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="absences-table-body">
+                                    <!-- Absence rows will be dynamically added here -->
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <button id="request-absence-btn" class="btn btn-primary mt-20">
+                            <i class="fas fa-plus"></i> Abwesenheit beantragen
+                        </button>
+                    </div>
+                    
+                    <!-- Info Tab -->
+                    <div id="info-tab" class="tab-content">
+                        <div class="employee-info-form">
+                            <div class="form-group">
+                                <label for="info-first-name">Vorname</label>
+                                <input type="text" id="info-first-name" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="info-last-name">Nachname</label>
+                                <input type="text" id="info-last-name" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="info-email">E-Mail</label>
+                                <input type="email" id="info-email" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="info-position">Position</label>
+                                <input type="text" id="info-position" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="info-department">Abteilung</label>
+                                <input type="text" id="info-department" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="info-status">Status</label>
+                                <input type="text" id="info-status" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Employee Modal removed - employees are synced from Supabase -->
+
+            <!-- Request Absence Modal -->
+            <div id="absence-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Abwesenheit beantragen</h3>
+                        <button class="close-modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="absence-form">
+                            <input type="hidden" id="absence-employee-id">
+                            <div class="form-group">
+                                <label for="absence-type">Abwesenheitstyp</label>
+                                <select id="absence-type" required>
+                                    <option value="1">Urlaub</option>
+                                    <option value="2">Krankheit</option>
+                                    <option value="3">Fortbildung</option>
+                                    <option value="4">Sonstiges</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="absence-start">Von</label>
+                                <input type="date" id="absence-start" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="absence-end">Bis</label>
+                                <input type="date" id="absence-end" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="absence-notes">Notizen</label>
+                                <textarea id="absence-notes"></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary close-modal">Abbrechen</button>
+                                <button type="submit" class="btn btn-primary">Beantragen</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2.38.4/dist/umd/supabase.js"></script>
+    <script src="js/env.js"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/employees.js"></script>
+</body>
+</html>

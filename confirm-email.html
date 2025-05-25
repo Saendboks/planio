@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planion - E-Mail bestätigen</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1 class="auth-logo">Planion</h1>
+                <p class="auth-subtitle">Einfache Schichtplanung</p>
+            </div>
+            
+            <div class="auth-content">
+                <div id="confirmation-pending" class="auth-step active">
+                    <h2>E-Mail-Bestätigung</h2>
+                    
+                    <div class="email-sent-icon">
+                        <i class="fas fa-envelope-open-text"></i>
+                    </div>
+                    
+                    <p class="auth-info">Wir haben Ihnen einen Bestätigungslink an Ihre E-Mail-Adresse gesendet. Bitte überprüfen Sie Ihren Posteingang und klicken Sie auf den Link, um Ihre E-Mail-Adresse zu bestätigen.</p>
+                    
+                    <p class="auth-note">Wenn Sie keine E-Mail erhalten haben, überprüfen Sie Ihren Spam-Ordner oder <a href="#" id="resend-link">senden Sie den Link erneut</a>.</p>
+                    
+                    <div class="auth-footer">
+                        <a href="signin.html"><i class="fas fa-arrow-left"></i> Zurück zur Anmeldung</a>
+                    </div>
+                </div>
+                
+                <div id="confirmation-success" class="auth-step hidden">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    
+                    <h2>E-Mail bestätigt!</h2>
+                    
+                    <p class="auth-info">Ihre E-Mail-Adresse wurde erfolgreich bestätigt. Sie können sich jetzt anmelden und Planion nutzen.</p>
+                    
+                    <a href="signin.html" class="btn btn-primary btn-block">Zur Anmeldung</a>
+                </div>
+                
+                <div id="confirmation-error" class="auth-step hidden">
+                    <div class="error-icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    
+                    <h2>Bestätigung fehlgeschlagen</h2>
+                    
+                    <p class="auth-info">Leider ist bei der Bestätigung Ihrer E-Mail-Adresse ein Fehler aufgetreten. Der Link ist möglicherweise abgelaufen oder ungültig.</p>
+                    
+                    <button id="request-new-link" class="btn btn-primary btn-block">Neuen Link anfordern</button>
+                    
+                    <div class="auth-footer">
+                        <a href="signin.html"><i class="fas fa-arrow-left"></i> Zurück zur Anmeldung</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2.38.4/dist/umd/supabase.js"></script>
+    <script src="js/env.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>
