@@ -65,3 +65,4 @@ Die Anwendung verwendet folgende Tabellen in Supabase:
 
 MIT
 # Planio
+# planio
