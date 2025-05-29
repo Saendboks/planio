@@ -1,4 +1,4 @@
-// Authentication functionality for Planion
+// Authentication functionality for Planio
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize Supabase client
     const { createClient } = window.supabase;

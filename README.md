@@ -1,6 +1,6 @@
-# Planion - Einfache Schichtplanung
+# Planio - Einfache Schichtplanung
 
-Planion ist eine Web-Anwendung für kleine bis mittlere Fertigungsunternehmen zur effizienten Schichtplanung. Die Anwendung ermöglicht es Managern, Wochenpläne zu erstellen, Mitarbeiterverfügbarkeiten zu sehen und Abwesenheiten zu verwalten.
+Planio ist eine Web-Anwendung für kleine bis mittlere Fertigungsunternehmen zur effizienten Schichtplanung. Die Anwendung ermöglicht es Managern, Wochenpläne zu erstellen, Mitarbeiterverfügbarkeiten zu sehen und Abwesenheiten zu verwalten.
 
 ## Features
 

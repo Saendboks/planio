@@ -1,4 +1,4 @@
-// Dashboard functionality for Planion
+// Dashboard functionality for Planio
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize Supabase client
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);

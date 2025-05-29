@@ -1,0 +1,534 @@
+/* Schichtplanung styles */
+.shift-planning-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 70px);
+    padding: var(--spacing-md);
+    gap: var(--spacing-md);
+}
+
+/* View Selector */
+.view-selector {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    margin-left: var(--spacing-md);
+}
+
+.view-btn {
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-sm);
+    background-color: var(--gray-200);
+    color: var(--gray-700);
+    border: none;
+    cursor: pointer;
+}
+
+.view-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Team Filter Dropdown */
+.team-filter-dropdown {
+    position: relative;
+    margin-right: var(--spacing-md);
+}
+
+#team-filter-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: white;
+    min-width: 200px;
+    box-shadow: var(--shadow-md);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-md);
+    z-index: 10;
+}
+
+.dropdown-content.show {
+    display: block;
+}
+
+.filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.filter-option {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.filter-option label {
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+}
+
+.team-checkbox {
+    cursor: pointer;
+}
+
+/* Weekday row and cells */
+.weekday-row {
+    background-color: var(--gray-100);
+    border-bottom: 2px solid var(--gray-300);
+}
+
+.time-cell-empty {
+    width: 80px;
+    background-color: var(--gray-200);
+    border-right: 2px solid var(--gray-400);
+}
+
+.weekday-cell {
+    text-align: center;
+    padding: 10px 5px;
+    border-right: 1px solid var(--gray-300);
+    height: 60px;
+}
+
+/* Weekday and date styles */
+.weekday {
+    font-weight: var(--font-weight-bold);
+    margin-bottom: 4px;
+    color: var(--gray-800);
+}
+
+.date {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+}
+
+/* Schedule Grid */
+.schedule-grid-container {
+    flex: 1;
+    background-color: white;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: auto;
+    height: calc(100vh - 290px); /* Adjusted height to account for weekday row */
+}
+
+/* Schedule Table */
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+/* Spacer row for ensuring full scrolling */
+.spacer-row {
+    height: 80px; /* Height to ensure last row is fully visible when scrolling */
+}
+
+.time-cell-spacer {
+    width: 80px;
+    background-color: var(--gray-200);
+    border-right: 2px solid var(--gray-400);
+}
+
+/* Column widths */
+.time-column-width {
+    width: 80px;
+}
+
+.day-column-width {
+    width: calc((100% - 80px) / 7);
+}
+
+/* Table headers */
+.schedule-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+/* Time header */
+.time-header {
+    width: 80px;
+    background-color: var(--gray-200); /* Slightly darker background to distinguish */
+    color: var(--gray-800);
+    text-align: center;
+    font-weight: var(--font-weight-bold);
+    padding: 10px;
+    border-right: 2px solid var(--gray-400); /* Stronger border */
+    border-bottom: 1px solid var(--gray-300);
+}
+
+/* Day headers */
+.day-header {
+    background-color: var(--gray-100);
+    color: var(--gray-800);
+    text-align: center;
+    font-weight: var(--font-weight-bold);
+    padding: 10px 5px;
+    border-right: 1px solid var(--gray-300);
+    border-bottom: 1px solid var(--gray-300);
+    height: 60px;
+    vertical-align: middle;
+}
+
+/* Time cell */
+.time-cell {
+    width: 80px;
+    background-color: var(--gray-200); /* Matching the time header */
+    color: var(--gray-700);
+    text-align: center;
+    font-weight: var(--font-weight-bold);
+    padding: 10px 0;
+    border-right: 2px solid var(--gray-400); /* Stronger border to match header */
+    position: sticky;
+    left: 0;
+    z-index: 5;
+}
+
+/* Grid cell */
+.grid-cell {
+    border: 1px solid var(--gray-300);
+    position: relative;
+    height: 80px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.grid-cell:hover {
+    background-color: var(--gray-100);
+}
+
+/* Shift container for positioning shifts */
+.shift-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 4;
+}
+
+/* Shift Styles */
+.shift-item {
+    position: absolute;
+    border-radius: var(--border-radius-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    color: white;
+    font-size: var(--font-size-xs);
+    cursor: move;
+    user-select: none;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    z-index: 5;
+    transition: box-shadow 0.2s ease;
+    pointer-events: auto;
+    width: calc(100% - 10px);
+    margin: 0 5px;
+}
+
+/* Days grid */
+.days-grid {
+    display: flex;
+    flex: 1;
+    min-height: 100%;
+}
+
+.days-header {
+    display: flex;
+    height: 40px;
+    background-color: var(--gray-200);
+    border-bottom: 1px solid var(--gray-300);
+    flex-shrink: 0;
+}
+
+.day-header {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    color: var(--gray-800);
+    border-right: 2px solid var(--gray-400);
+    padding: var(--spacing-xs);
+}
+
+/* Alternating day headers */
+.day-header.even {
+    background-color: var(--gray-50);
+}
+
+.day-header.odd {
+    background-color: var(--gray-100);
+}
+
+/* Weekend styling */
+.day-header.weekend {
+    background-color: var(--gray-200);
+    color: var(--gray-700);
+}
+
+.day-date {
+    font-size: var(--font-size-xs);
+    font-weight: normal;
+    color: var(--gray-600);
+    margin-top: 2px;
+}
+
+.day-header:last-child {
+    border-right: none;
+}
+
+.days-grid {
+    display: flex;
+    flex: 1;
+    position: relative;
+}
+
+.day-column {
+    flex: 1;
+    position: relative;
+    min-width: 150px;
+    border-right: 2px solid var(--gray-400);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Grid cell for each hour */
+.grid-cell {
+    height: 60px;
+    border-bottom: 1px solid var(--gray-300);
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* Alternating day columns */
+.day-column.even {
+    background-color: var(--gray-50);
+}
+
+.day-column.odd {
+    background-color: var(--gray-100);
+}
+
+/* Weekend styling */
+.day-column.weekend {
+    background-color: var(--gray-200);
+}
+
+.day-column:last-child {
+    border-right: none;
+}
+
+/* Team Hours Summary */
+.team-hours-summary {
+    background-color: white;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.team-hours-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md) var(--spacing-xl);
+    justify-content: flex-start;
+}
+
+.team-hours-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.team-hours-item.total {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-left: auto;
+}
+
+.team-name {
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+}
+
+.team-hours {
+    font-size: var(--font-size-sm);
+    color: var(--gray-700);
+    min-width: 80px;
+}
+
+.team-hours-item.hidden {
+    display: none;
+}
+
+/* Shift Styles */
+.shift-item {
+    position: absolute;
+    border-radius: var(--border-radius-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    color: white;
+    font-size: var(--font-size-xs);
+    cursor: move;
+    user-select: none;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    z-index: 5;
+    transition: box-shadow 0.2s ease;
+    left: 5px;
+    right: 5px;
+    width: calc(100% - 10px);
+}
+
+.shift-item:hover {
+    box-shadow: var(--shadow-md);
+    z-index: 10;
+}
+
+.shift-item.team-a {
+    background-color: var(--shift-early);
+}
+
+.shift-item.team-b {
+    background-color: var(--shift-late);
+}
+
+.shift-item.team-c {
+    background-color: var(--shift-night);
+}
+
+.shift-item.overlap {
+    border: 2px dashed var(--danger-color);
+}
+
+.shift-time {
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+}
+
+.shift-team {
+    font-size: var(--font-size-xs);
+    opacity: 0.9;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background-color: white;
+    border-radius: var(--border-radius-md);
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh; /* Limit height to prevent overflow */
+    box-shadow: var(--shadow-lg);
+    overflow-y: auto; /* Add scrolling for tall modals */
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--gray-200);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    font-size: var(--font-size-lg);
+    color: var(--gray-800);
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: var(--font-size-xl);
+    cursor: pointer;
+    color: var(--gray-600);
+}
+
+.modal-body {
+    padding: var(--spacing-md);
+}
+
+.form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    font-size: var(--font-size-sm);
+    color: var(--gray-700);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: var(--spacing-sm);
+    border: 1px solid var(--gray-300);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-md);
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+    padding-bottom: var(--spacing-md);
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .shift-planning-container {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .team-filter {
+        width: 100%;
+    }
+    
+    .schedule-grid-container {
+        height: 600px;
+    }
+    
+    .team-hours-sidebar {
+        width: 100%;
+    }
+}

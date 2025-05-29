@@ -3,11 +3,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Elements
     const prevWeekBtn = document.getElementById('prev-week');
     const nextWeekBtn = document.getElementById('next-week');
+    const prevMonthBtn = document.getElementById('prev-month');
+    const nextMonthBtn = document.getElementById('next-month');
     const currentWeekDisplay = document.getElementById('current-week-display');
+    const currentMonthDisplay = document.getElementById('current-month-display');
     const todayBtn = document.getElementById('today-btn');
     const viewBtns = document.querySelectorAll('.btn-view');
     const addShiftBtn = document.getElementById('add-shift-btn');
-    const savePlanBtn = document.getElementById('save-plan-btn');
     const deptTabs = document.querySelectorAll('.dept-tab');
     const scheduleDays = document.querySelector('.schedule-days');
     const timeLabels = document.querySelector('.time-labels');
@@ -25,13 +27,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let attendances = [];
     let selectedShift = null;
 
-    // Initialize
+    // Initialize the application
     init();
 
     // Event listeners
-    prevWeekBtn.addEventListener('click', () => navigateWeek(-1));
-    nextWeekBtn.addEventListener('click', () => navigateWeek(1));
-    todayBtn.addEventListener('click', goToToday);
+    if (prevWeekBtn) prevWeekBtn.addEventListener('click', () => navigateWeek(-1));
+    if (nextWeekBtn) nextWeekBtn.addEventListener('click', () => navigateWeek(1));
+    if (prevMonthBtn) prevMonthBtn.addEventListener('click', () => navigateMonth(-1));
+    if (nextMonthBtn) nextMonthBtn.addEventListener('click', () => navigateMonth(1));
+    if (todayBtn) todayBtn.addEventListener('click', goToToday);
     
     viewBtns.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -55,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         openShiftModal();
     });
 
-    savePlanBtn.addEventListener('click', savePlan);
+    // Removed save plan button functionality
 
     closeModalBtns.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -68,13 +72,17 @@ document.addEventListener('DOMContentLoaded', () => {
         saveShift();
     });
 
-    // Functions
+    // Initialize the application
     async function init() {
-        await loadEmployees();
-        await loadAbsences();
-        await loadAttendances();
-        updateWeekDisplay();
-        renderSchedule();
+        try {
+            await loadEmployees();
+            await loadAbsences();
+            await loadAttendances();
+            updateWeekDisplay();
+            renderSchedule();
+        } catch (error) {
+            console.error('Error initializing application:', error);
+        }
     }
 
     async function loadEmployees() {
@@ -144,10 +152,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function navigateWeek(direction) {
-        currentDate.setDate(currentDate.getDate() + (direction * 7));
+        const newDate = new Date(currentDate);
+        newDate.setDate(currentDate.getDate() + (7 * direction));
+        currentDate = newDate;
         updateWeekDisplay();
         loadAbsences();
         loadAttendances();
+        renderSchedule();
     }
 
     function goToToday() {
@@ -162,6 +173,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const endDate = getWeekEndDate(currentDate);
         
         currentWeekDisplay.textContent = `${formatDateDisplay(startDate)} - ${formatDateDisplay(endDate)}`;
+        updateMonthDisplay();
+    }
+    
+    function updateMonthDisplay() {
+        const options = { month: 'long', year: 'numeric' };
+        currentMonthDisplay.textContent = currentDate.toLocaleDateString('de-DE', options);
+    }
+    
+    function navigateMonth(months) {
+        const newDate = new Date(currentDate);
+        newDate.setMonth(currentDate.getMonth() + months);
+        currentDate = newDate;
+        updateWeekDisplay();
+        loadAbsences();
+        loadAttendances();
+        renderSchedule();
     }
 
     function renderSchedule() {
@@ -517,13 +544,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    async function savePlan() {
-        try {
-            alert('Dienstplan wurde gespeichert!');
-        } catch (error) {
-            console.error('Error saving plan:', error);
-        }
-    }
+    // Removed savePlan function
 
     function populateEmployeeSelect() {
         shiftEmployeeSelect.innerHTML = '';

@@ -1,4 +1,4 @@
-// Planion - Database Setup Script
+// Planio - Database Setup Script
 // This script initializes the Supabase database with the required tables and sample data
 
 document.addEventListener('DOMContentLoaded', async () => {

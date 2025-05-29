@@ -1,10 +1,10 @@
-# Planion – Web App Blueprint  
+# Planio – Web App Blueprint  
 *Simple Shift Planning with Supabase and JavaScript*
 
 ---
 
 ## 1. Vision  
-Planion hilft kleinen bis mittleren Fertigungsunternehmen, Schichten effizient zu planen.  
+Planio hilft kleinen bis mittleren Fertigungsunternehmen, Schichten effizient zu planen.  
 Ein simples Web-Tool für Manager, um Wochenpläne zu erstellen, Verfügbarkeiten zu sehen und Abwesenheiten zu berücksichtigen – ohne Excel-Chaos.  
 
 ---

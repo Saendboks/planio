@@ -1,4 +1,4 @@
-/* Planion - Main Stylesheet */
+/* Planio - Main Stylesheet */
 :root {
     /* Color variables */
     --primary-color: #6c5ce7;
@@ -193,8 +193,29 @@ ul {
 
 .controls {
     display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    width: 100%;
+}
+
+.navigation-buttons {
+    display: flex;
     align-items: center;
-    gap: var(--spacing-md);
+    gap: var(--spacing-sm);
+}
+
+.current-month {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--gray-700);
+    text-align: center;
+    margin-top: var(--spacing-xs);
+}
+
+#current-week-display {
+    min-width: 180px;
+    text-align: center;
+    font-weight: 500;
 }
 
 .actions {

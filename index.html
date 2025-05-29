@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planion - Schichtplanung</title>
+    <title>Planio - Schichtplanung</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -12,12 +12,13 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="logo">
-                <h1>Planion</h1>
+                <h1>Planio</h1>
             </div>
             <nav class="nav-menu">
                 <ul>
                     <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                    <li class="active"><a href="index.html"><i class="fas fa-calendar-week"></i> Dienstplan</a></li>
+                    <li><a href="#" class="active"><i class="fas fa-calendar-alt"></i> Dienstplan</a></li>
+                    <li><a href="schichtplanung.html"><i class="fas fa-calendar-check"></i> Schichtplanung</a></li>
                     <li><a href="employee.html"><i class="fas fa-users"></i> Mitarbeiter</a></li>
                     <li><a href="#"><i class="fas fa-chart-bar"></i> Statistiken</a></li>
                     <li><a href="#"><i class="fas fa-cog"></i> Einstellungen</a></li>
@@ -35,22 +36,29 @@
         <!-- Main Content -->
         <main class="main-content">
             <header class="top-bar">
-                <div class="page-title">
-                    <h2>Dienstplan</h2>
-                </div>
                 <div class="controls">
-                    <button id="prev-week" class="btn btn-icon"><i class="fas fa-chevron-left"></i></button>
-                    <span id="current-week-display">3. Juli - 9. Juli</span>
-                    <button id="next-week" class="btn btn-icon"><i class="fas fa-chevron-right"></i></button>
-                    <button id="today-btn" class="btn">Heute</button>
-                    <div class="view-selector">
-                        <button class="btn btn-view active" data-view="week">Woche</button>
-                        <button class="btn btn-view" data-view="month">Monat</button>
+                    <div class="navigation-buttons">
+                        <button id="prev-month" class="btn btn-icon" title="Vorheriger Monat">
+                            <i class="fas fa-angle-double-left"></i>
+                        </button>
+                        <button id="prev-week" class="btn btn-icon" title="Vorherige Woche">
+                            <i class="fas fa-angle-left"></i>
+                        </button>
+                        <span id="current-week-display">3. Juli - 9. Juli</span>
+                        <button id="next-week" class="btn btn-icon" title="Nächste Woche">
+                            <i class="fas fa-angle-right"></i>
+                        </button>
+                        <button id="next-month" class="btn btn-icon" title="Nächster Monat">
+                            <i class="fas fa-angle-double-right"></i>
+                        </button>
+                        <button id="today-btn" class="btn">Heute</button>
+                    </div>
+                    <div class="current-month">
+                        <span id="current-month-display">Juli 2023</span>
                     </div>
                 </div>
                 <div class="actions">
                     <button id="add-shift-btn" class="btn btn-primary"><i class="fas fa-plus"></i> Schicht hinzufügen</button>
-                    <button id="save-plan-btn" class="btn btn-success"><i class="fas fa-save"></i> Plan speichern</button>
                 </div>
             </header>
 

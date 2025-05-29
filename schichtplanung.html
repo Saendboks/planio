@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planio - Schichtplanung</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/schichtplanung.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>Planio</h1>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="index.html"><i class="fas fa-calendar-alt"></i> Dienstplan</a></li>
+                    <li class="active"><a href="schichtplanung.html"><i class="fas fa-calendar-check"></i> Schichtplanung</a></li>
+                    <li><a href="employee.html"><i class="fas fa-users"></i> Mitarbeiter</a></li>
+                    <li><a href="#"><i class="fas fa-chart-bar"></i> Statistiken</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> Einstellungen</a></li>
+                </ul>
+            </nav>
+            <div class="user-profile">
+                <img id="user-avatar" src="https://ui-avatars.com/api/?name=Admin&background=6c5ce7&color=fff" alt="User Profile">
+                <div class="user-info">
+                    <p id="user-name" class="user-name">Admin</p>
+                    <p id="user-role" class="user-role">Manager</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="controls">
+                    <div class="navigation-buttons">
+                        <button id="prev-month" class="btn btn-icon" title="Vorheriger Monat">
+                            <i class="fas fa-angle-double-left"></i>
+                        </button>
+                        <button id="prev-week" class="btn btn-icon" title="Vorherige Woche">
+                            <i class="fas fa-angle-left"></i>
+                        </button>
+                        <span id="current-date-display">3. Juli - 9. Juli</span>
+                        <button id="next-week" class="btn btn-icon" title="Nächste Woche">
+                            <i class="fas fa-angle-right"></i>
+                        </button>
+                        <button id="next-month" class="btn btn-icon" title="Nächster Monat">
+                            <i class="fas fa-angle-double-right"></i>
+                        </button>
+                        <button id="today-btn" class="btn">Heute</button>
+                    </div>
+                    <div class="current-month">
+                        <span id="current-month-display">Juli 2025</span>
+                    </div>
+                </div>
+                <div class="actions">
+                    <div class="team-filter-dropdown">
+                        <button id="team-filter-btn" class="btn">
+                            <i class="fas fa-filter"></i> Teams filtern
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="team-filter-dropdown" class="dropdown-content">
+                            <div class="filter-option">
+                                <input type="checkbox" id="filter-all" class="team-checkbox" data-team="all" checked>
+                                <label for="filter-all">Alle Teams</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="filter-team-a" class="team-checkbox" data-team="team-a">
+                                <label for="filter-team-a">Team A</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="filter-team-b" class="team-checkbox" data-team="team-b">
+                                <label for="filter-team-b">Team B</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="filter-team-c" class="team-checkbox" data-team="team-c">
+                                <label for="filter-team-c">Team C</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="add-shift-btn" class="btn btn-primary"><i class="fas fa-plus"></i> Schicht planen</button>
+                </div>
+            </header>
+
+            <div class="shift-planning-container">
+                <!-- Team Hours Summary -->
+                <div class="team-hours-summary">
+                    <div class="team-hours-content">
+                        <div class="team-hours-item" data-team="team-a">
+                            <div class="team-name">Team A</div>
+                            <div class="team-hours" id="team-a-hours">0 Stunden</div>
+                        </div>
+                        <div class="team-hours-item" data-team="team-b">
+                            <div class="team-name">Team B</div>
+                            <div class="team-hours" id="team-b-hours">0 Stunden</div>
+                        </div>
+                        <div class="team-hours-item" data-team="team-c">
+                            <div class="team-name">Team C</div>
+                            <div class="team-hours" id="team-c-hours">0 Stunden</div>
+                        </div>
+                        <div class="team-hours-item total">
+                            <div class="team-name">Gesamt</div>
+                            <div class="team-hours" id="total-hours">0 Stunden</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- No separate date display needed anymore -->
+                
+                <!-- Main Schedule Grid -->
+                <div class="schedule-grid-container">
+                    <!-- Grid table with fixed header and time column -->
+                    <table class="schedule-table">
+                        <colgroup>
+                            <col class="time-column-width">
+                            <col class="day-column-width" span="7">
+                        </colgroup>
+                        <tbody class="schedule-body">
+                            <!-- Weekday and date bar -->
+                            <tr class="weekday-row">
+                                <td class="time-cell-empty"></td>
+                                <td class="weekday-cell">
+                                    <div class="weekday">Montag</div>
+                                    <div class="date" id="date-0">26.05</div>
+                                </td>
+                                <td class="weekday-cell">
+                                    <div class="weekday">Dienstag</div>
+                                    <div class="date" id="date-1">27.05</div>
+                                </td>
+                                <td class="weekday-cell">
+                                    <div class="weekday">Mittwoch</div>
+                                    <div class="date" id="date-2">28.05</div>
+                                </td>
+                                <td class="weekday-cell">
+                                    <div class="weekday">Donnerstag</div>
+                                    <div class="date" id="date-3">29.05</div>
+                                </td>
+                                <td class="weekday-cell">
+                                    <div class="weekday">Freitag</div>
+                                    <div class="date" id="date-4">30.05</div>
+                                </td>
+                                <td class="weekday-cell">
+                                    <div class="weekday">Samstag</div>
+                                    <div class="date" id="date-5">31.05</div>
+                                </td>
+                                <td class="weekday-cell">
+                                    <div class="weekday">Sonntag</div>
+                                    <div class="date" id="date-6">01.06</div>
+                                </td>
+                            </tr>
+                            <!-- Time slots and grid cells for each hour -->
+                            <tr class="time-row">
+                                <td class="time-cell">00:00</td>
+                                <td class="grid-cell" data-day="0" data-hour="0"></td>
+                                <td class="grid-cell" data-day="1" data-hour="0"></td>
+                                <td class="grid-cell" data-day="2" data-hour="0"></td>
+                                <td class="grid-cell" data-day="3" data-hour="0"></td>
+                                <td class="grid-cell" data-day="4" data-hour="0"></td>
+                                <td class="grid-cell" data-day="5" data-hour="0"></td>
+                                <td class="grid-cell" data-day="6" data-hour="0"></td>
+                            </tr>
+                            <tr class="time-row">
+                                <td class="time-cell">01:00</td>
+                                <td class="grid-cell" data-day="0" data-hour="1"></td>
+                                <td class="grid-cell" data-day="1" data-hour="1"></td>
+                                <td class="grid-cell" data-day="2" data-hour="1"></td>
+                                <td class="grid-cell" data-day="3" data-hour="1"></td>
+                                <td class="grid-cell" data-day="4" data-hour="1"></td>
+                                <td class="grid-cell" data-day="5" data-hour="1"></td>
+                                <td class="grid-cell" data-day="6" data-hour="1"></td>
+                            </tr>
+                            <tr class="time-row">
+                                <td class="time-cell">02:00</td>
+                                <td class="grid-cell" data-day="0" data-hour="2"></td>
+                                <td class="grid-cell" data-day="1" data-hour="2"></td>
+                                <td class="grid-cell" data-day="2" data-hour="2"></td>
+                                <td class="grid-cell" data-day="3" data-hour="2"></td>
+                                <td class="grid-cell" data-day="4" data-hour="2"></td>
+                                <td class="grid-cell" data-day="5" data-hour="2"></td>
+                                <td class="grid-cell" data-day="6" data-hour="2"></td>
+                            </tr>
+                            <tr class="time-row">
+                                <td class="time-cell">03:00</td>
+                                <td class="grid-cell" data-day="0" data-hour="3"></td>
+                                <td class="grid-cell" data-day="1" data-hour="3"></td>
+                                <td class="grid-cell" data-day="2" data-hour="3"></td>
+                                <td class="grid-cell" data-day="3" data-hour="3"></td>
+                                <td class="grid-cell" data-day="4" data-hour="3"></td>
+                                <td class="grid-cell" data-day="5" data-hour="3"></td>
+                                <td class="grid-cell" data-day="6" data-hour="3"></td>
+                            </tr>
+                            <tr class="time-row">
+                                <td class="time-cell">04:00</td>
+                                <td class="grid-cell" data-day="0" data-hour="4"></td>
+                                <td class="grid-cell" data-day="1" data-hour="4"></td>
+                                <td class="grid-cell" data-day="2" data-hour="4"></td>
+                                <td class="grid-cell" data-day="3" data-hour="4"></td>
+                                <td class="grid-cell" data-day="4" data-hour="4"></td>
+                                <td class="grid-cell" data-day="5" data-hour="4"></td>
+                                <td class="grid-cell" data-day="6" data-hour="4"></td>
+                            </tr>
+                            <tr class="time-row">
+                                <td class="time-cell">05:00</td>
+                                <td class="grid-cell" data-day="0" data-hour="5"></td>
+                                <td class="grid-cell" data-day="1" data-hour="5"></td>
+                                <td class="grid-cell" data-day="2" data-hour="5"></td>
+                                <td class="grid-cell" data-day="3" data-hour="5"></td>
+                                <td class="grid-cell" data-day="4" data-hour="5"></td>
+                                <td class="grid-cell" data-day="5" data-hour="5"></td>
+                                <td class="grid-cell" data-day="6" data-hour="5"></td>
+                            </tr>
+                            <tr class="time-row">
+                                <td class="time-cell">06:00</td>
+                                <td class="grid-cell" data-day="0" data-hour="6"></td>
+                                <td class="grid-cell" data-day="1" data-hour="6"></td>
+                                <td class="grid-cell" data-day="2" data-hour="6"></td>
+                                <td class="grid-cell" data-day="3" data-hour="6"></td>
+                                <td class="grid-cell" data-day="4" data-hour="6"></td>
+                                <td class="grid-cell" data-day="5" data-hour="6"></td>
+                                <td class="grid-cell" data-day="6" data-hour="6"></td>
+                            </tr>
+                            <tr class="time-row">
+                                <td class="time-cell">07:00</td>
+                                <td class="grid-cell" data-day="0" data-hour="7"></td>
+                                <td class="grid-cell" data-day="1" data-hour="7"></td>
+                                <td class="grid-cell" data-day="2" data-hour="7"></td>
+                                <td class="grid-cell" data-day="3" data-hour="7"></td>
+                                <td class="grid-cell" data-day="4" data-hour="7"></td>
+                                <td class="grid-cell" data-day="5" data-hour="7"></td>
+                                <td class="grid-cell" data-day="6" data-hour="7"></td>
+                            </tr>
+                            <tr class="time-row">
+                                <td class="time-cell">08:00</td>
+                                <td class="grid-cell" data-day="0" data-hour="8"></td>
+                                <td class="grid-cell" data-day="1" data-hour="8"></td>
+                                <td class="grid-cell" data-day="2" data-hour="8"></td>
+                                <td class="grid-cell" data-day="3" data-hour="8"></td>
+                                <td class="grid-cell" data-day="4" data-hour="8"></td>
+                                <td class="grid-cell" data-day="5" data-hour="8"></td>
+                                <td class="grid-cell" data-day="6" data-hour="8"></td>
+                            </tr>
+                            <tr class="time-row">
+                                <td class="time-cell">09:00</td>
+                                <td class="grid-cell" data-day="0" data-hour="9"></td>
+                                <td class="grid-cell" data-day="1" data-hour="9"></td>
+                                <td class="grid-cell" data-day="2" data-hour="9"></td>
+                                <td class="grid-cell" data-day="3" data-hour="9"></td>
+                                <td class="grid-cell" data-day="4" data-hour="9"></td>
+                                <td class="grid-cell" data-day="5" data-hour="9"></td>
+                                <td class="grid-cell" data-day="6" data-hour="9"></td>
+                            </tr>
+                            <tr class="time-row">
+                                <td class="time-cell">10:00</td>
+                                <td class="grid-cell" data-day="0" data-hour="10"></td>
+                                <td class="grid-cell" data-day="1" data-hour="10"></td>
+                                <td class="grid-cell" data-day="2" data-hour="10"></td>
+                                <td class="grid-cell" data-day="3" data-hour="10"></td>
+                                <td class="grid-cell" data-day="4" data-hour="10"></td>
+                                <td class="grid-cell" data-day="5" data-hour="10"></td>
+                                <td class="grid-cell" data-day="6" data-hour="10"></td>
+                            </tr>
+                            <tr class="time-row">
+                                <td class="time-cell">11:00</td>
+                                <td class="grid-cell" data-day="0" data-hour="11"></td>
+                                <td class="grid-cell" data-day="1" data-hour="11"></td>
+                                <td class="grid-cell" data-day="2" data-hour="11"></td>
+                                <td class="grid-cell" data-day="3" data-hour="11"></td>
+                                <td class="grid-cell" data-day="4" data-hour="11"></td>
+                                <td class="grid-cell" data-day="5" data-hour="11"></td>
+                                <td class="grid-cell" data-day="6" data-hour="11"></td>
+                            </tr>
+                            <tr class="time-row">
+                                <td class="time-cell">12:00</td>
+                                <td class="grid-cell" data-day="0" data-hour="12"></td>
+                                <td class="grid-cell" data-day="1" data-hour="12"></td>
+                                <td class="grid-cell" data-day="2" data-hour="12"></td>
+                                <td class="grid-cell" data-day="3" data-hour="12"></td>
+                                <td class="grid-cell" data-day="4" data-hour="12"></td>
+                                <td class="grid-cell" data-day="5" data-hour="12"></td>
+                                <td class="grid-cell" data-day="6" data-hour="12"></td>
+                            </tr>
+                            <tr class="time-row">
+                                <td class="time-cell">13:00</td>
+                                <td class="grid-cell" data-day="0" data-hour="13"></td>
+                                <td class="grid-cell" data-day="1" data-hour="13"></td>
+                                <td class="grid-cell" data-day="2" data-hour="13"></td>
+                                <td class="grid-cell" data-day="3" data-hour="13"></td>
+                                <td class="grid-cell" data-day="4" data-hour="13"></td>
+                                <td class="grid-cell" data-day="5" data-hour="13"></td>
+                                <td class="grid-cell" data-day="6" data-hour="13"></td>
+                            </tr>
+                            <tr class="time-row">
+                                <td class="time-cell">14:00</td>
+                                <td class="grid-cell" data-day="0" data-hour="14"></td>
+                                <td class="grid-cell" data-day="1" data-hour="14"></td>
+                                <td class="grid-cell" data-day="2" data-hour="14"></td>
+                                <td class="grid-cell" data-day="3" data-hour="14"></td>
+                                <td class="grid-cell" data-day="4" data-hour="14"></td>
+                                <td class="grid-cell" data-day="5" data-hour="14"></td>
+                                <td class="grid-cell" data-day="6" data-hour="14"></td>
+                            </tr>
+                            <tr class="time-row">
+                                <td class="time-cell">15:00</td>
+                                <td class="grid-cell" data-day="0" data-hour="15"></td>
+                                <td class="grid-cell" data-day="1" data-hour="15"></td>
+                                <td class="grid-cell" data-day="2" data-hour="15"></td>
+                                <td class="grid-cell" data-day="3" data-hour="15"></td>
+                                <td class="grid-cell" data-day="4" data-hour="15"></td>
+                                <td class="grid-cell" data-day="5" data-hour="15"></td>
+                                <td class="grid-cell" data-day="6" data-hour="15"></td>
+                            </tr>
+                            <tr class="time-row">
+                                <td class="time-cell">16:00</td>
+                                <td class="grid-cell" data-day="0" data-hour="16"></td>
+                                <td class="grid-cell" data-day="1" data-hour="16"></td>
+                                <td class="grid-cell" data-day="2" data-hour="16"></td>
+                                <td class="grid-cell" data-day="3" data-hour="16"></td>
+                                <td class="grid-cell" data-day="4" data-hour="16"></td>
+                                <td class="grid-cell" data-day="5" data-hour="16"></td>
+                                <td class="grid-cell" data-day="6" data-hour="16"></td>
+                            </tr>
+                            <tr class="time-row">
+                                <td class="time-cell">17:00</td>
+                                <td class="grid-cell" data-day="0" data-hour="17"></td>
+                                <td class="grid-cell" data-day="1" data-hour="17"></td>
+                                <td class="grid-cell" data-day="2" data-hour="17"></td>
+                                <td class="grid-cell" data-day="3" data-hour="17"></td>
+                                <td class="grid-cell" data-day="4" data-hour="17"></td>
+                                <td class="grid-cell" data-day="5" data-hour="17"></td>
+                                <td class="grid-cell" data-day="6" data-hour="17"></td>
+                            </tr>
+                            <tr class="time-row">
+                                <td class="time-cell">18:00</td>
+                                <td class="grid-cell" data-day="0" data-hour="18"></td>
+                                <td class="grid-cell" data-day="1" data-hour="18"></td>
+                                <td class="grid-cell" data-day="2" data-hour="18"></td>
+                                <td class="grid-cell" data-day="3" data-hour="18"></td>
+                                <td class="grid-cell" data-day="4" data-hour="18"></td>
+                                <td class="grid-cell" data-day="5" data-hour="18"></td>
+                                <td class="grid-cell" data-day="6" data-hour="18"></td>
+                            </tr>
+                            <tr class="time-row">
+                                <td class="time-cell">19:00</td>
+                                <td class="grid-cell" data-day="0" data-hour="19"></td>
+                                <td class="grid-cell" data-day="1" data-hour="19"></td>
+                                <td class="grid-cell" data-day="2" data-hour="19"></td>
+                                <td class="grid-cell" data-day="3" data-hour="19"></td>
+                                <td class="grid-cell" data-day="4" data-hour="19"></td>
+                                <td class="grid-cell" data-day="5" data-hour="19"></td>
+                                <td class="grid-cell" data-day="6" data-hour="19"></td>
+                            </tr>
+                            <tr class="time-row">
+                                <td class="time-cell">20:00</td>
+                                <td class="grid-cell" data-day="0" data-hour="20"></td>
+                                <td class="grid-cell" data-day="1" data-hour="20"></td>
+                                <td class="grid-cell" data-day="2" data-hour="20"></td>
+                                <td class="grid-cell" data-day="3" data-hour="20"></td>
+                                <td class="grid-cell" data-day="4" data-hour="20"></td>
+                                <td class="grid-cell" data-day="5" data-hour="20"></td>
+                                <td class="grid-cell" data-day="6" data-hour="20"></td>
+                            </tr>
+                            <tr class="time-row">
+                                <td class="time-cell">21:00</td>
+                                <td class="grid-cell" data-day="0" data-hour="21"></td>
+                                <td class="grid-cell" data-day="1" data-hour="21"></td>
+                                <td class="grid-cell" data-day="2" data-hour="21"></td>
+                                <td class="grid-cell" data-day="3" data-hour="21"></td>
+                                <td class="grid-cell" data-day="4" data-hour="21"></td>
+                                <td class="grid-cell" data-day="5" data-hour="21"></td>
+                                <td class="grid-cell" data-day="6" data-hour="21"></td>
+                            </tr>
+                            <tr class="time-row">
+                                <td class="time-cell">22:00</td>
+                                <td class="grid-cell" data-day="0" data-hour="22"></td>
+                                <td class="grid-cell" data-day="1" data-hour="22"></td>
+                                <td class="grid-cell" data-day="2" data-hour="22"></td>
+                                <td class="grid-cell" data-day="3" data-hour="22"></td>
+                                <td class="grid-cell" data-day="4" data-hour="22"></td>
+                                <td class="grid-cell" data-day="5" data-hour="22"></td>
+                                <td class="grid-cell" data-day="6" data-hour="22"></td>
+                            </tr>
+                            <tr class="time-row">
+                                <td class="time-cell">23:00</td>
+                                <td class="grid-cell" data-day="0" data-hour="23"></td>
+                                <td class="grid-cell" data-day="1" data-hour="23"></td>
+                                <td class="grid-cell" data-day="2" data-hour="23"></td>
+                                <td class="grid-cell" data-day="3" data-hour="23"></td>
+                                <td class="grid-cell" data-day="4" data-hour="23"></td>
+                                <td class="grid-cell" data-day="5" data-hour="23"></td>
+                                <td class="grid-cell" data-day="6" data-hour="23"></td>
+                            </tr>
+                            <!-- Spacer row to ensure full scrolling -->
+                            <tr class="spacer-row">
+                                <td class="time-cell-spacer"></td>
+                                <td colspan="7"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- Shift container for positioning shifts -->
+                    <div id="shift-container" class="shift-container"></div>
+                </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shift Planning Modal -->
+            <div id="shift-planning-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Schicht planen</h3>
+                        <button class="close-modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="shift-planning-form">
+                            <div class="form-group">
+                                <label for="shift-team">Team</label>
+                                <select id="shift-team" required>
+                                    <option value="">Team auswählen</option>
+                                    <option value="team-a">Team A</option>
+                                    <option value="team-b">Team B</option>
+                                    <option value="team-c">Team C</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="shift-date">Datum</label>
+                                <input type="date" id="shift-date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="shift-start-time">Startzeit</label>
+                                <input type="time" id="shift-start-time" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="shift-end-time">Endzeit</label>
+                                <input type="time" id="shift-end-time" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="shift-color">Farbe</label>
+                                <select id="shift-color">
+                                    <option value="var(--shift-early)">Früh</option>
+                                    <option value="var(--shift-late)">Spät</option>
+                                    <option value="var(--shift-night)">Nacht</option>
+                                    <option value="var(--shift-available)">Verfügbar</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="shift-notes">Notizen</label>
+                                <textarea id="shift-notes"></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary close-modal">Abbrechen</button>
+                                <button type="submit" class="btn btn-primary">Speichern</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.38.4/dist/umd/supabase.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+    <script src="js/env.js"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/schichtplanung.js"></script>
+</body>
+</html>
